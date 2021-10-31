@@ -1,21 +1,11 @@
-import { tagRow } from './models/tagRow'
+import path from 'path'
+import * as grpc from '@grpc/grpc-js'
+import * as protoLoader from '@grpc/proto-loader'
+import { ProtoGrpcType } from './proto/blackPixels'
 
-const matrix = [
-  [1, 0, 1, 0, 0],
-  [0, 1, 0, 1, 1],
-  [0, 1, 0, 1, 0],
-  [0, 1, 0, 1, 0],
-  [0, 0, 0, 0, 1]
-]
+const PORT = 8082
+const PROTO_FILE = './proto/random.proto'
 
-const transpose = (a: number[][]): number[][] => a[0].map((_, c) => a.map(r => r[c]))
-
-const matrix2 = matrix.map(row => {
-  return tagRow(row)
-})
-
-const transposedMatrix2 = transpose(matrix2)
-
-transposedMatrix2.forEach(row => {
-  console.log(tagRow(row))
-})
+const packageDef = protoLoader.loadSync(path.resolve(__dirname, PROTO_FILE))
+const grpcObj = (grpc.loadPackageDefinition(packageDef) as unknown) as ProtoGrpcType
+const randomPackage = grpcObj.randomPackage
