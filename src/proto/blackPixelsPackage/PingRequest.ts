@@ -1,4 +1,4 @@
-// Original file: proto/blackPixels.proto
+// Original file: src/proto/blackPixels.proto
 
 
 export interface PingRequest {
