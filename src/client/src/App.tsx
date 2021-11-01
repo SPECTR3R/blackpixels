@@ -6,7 +6,7 @@ import { PixelServiceClient } from './proto/BlackPixelsServiceClientPb'
 
 function App() {
   useEffect(() => {
-    const client = new PixelServiceClient('http://localhost:8082')
+    const client = new PixelServiceClient('http://localhost:8080')
     const matrixSize = new MatrixSize()
     matrixSize.setN(5)
     matrixSize.setN(5)
