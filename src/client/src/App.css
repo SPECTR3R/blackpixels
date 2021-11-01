@@ -45,11 +45,11 @@
   padding: 10px;
   margin: 10px;
   margin-bottom: 30px;
+  cursor: pointer;
 }
 .App-button:hover {
   background-color: #214b57;
   color: white;
-  cursor:pointer;
 }
 .App-input {
   background-color: #586669;
@@ -60,4 +60,11 @@
   width: 3rem;
   padding: 10px;
   margin-bottom: 10px;
+}
+
+button[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
 }
