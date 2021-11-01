@@ -41,11 +41,12 @@ client.waitForReady(deadline, function (err) {
 });
 function onClientReady() {
     var stream1 = client.getMatrix({ n: 5, m: 5 });
+    var initialMatrix = [];
     stream1.on('data', function (chunk) {
-        console.log(chunk);
+        initialMatrix.push(chunk.list);
     });
     stream1.on('end', function () {
-        console.log('pos olle 1');
+        console.log(initialMatrix);
     });
     var stream2 = client.getNewMatrixValues({});
     stream2.on('data', function (chunk) {
