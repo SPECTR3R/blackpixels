@@ -31,6 +31,7 @@ var PROTO_FILE = './proto/blackPixels.proto';
 var packageDef = protoLoader.loadSync(path_1.default.resolve(__dirname, PROTO_FILE));
 var grpcObj = grpc.loadPackageDefinition(packageDef);
 var blackPixelsPackage = grpcObj.blackPixelsPackage;
+var removeBlackPixels;
 function main() {
     var server = getServer();
     server.bindAsync("0.0.0.0:" + PORT, grpc.ServerCredentials.createInsecure(), function (err, port) {
@@ -48,15 +49,32 @@ function getServer() {
         getMatrix: function (call) {
             var _a = call.request, n = _a.n, m = _a.m;
             var matrix = (0, logic_1.createRandomMatrix)(n, m);
-            console.log(matrix);
+            removeBlackPixels = new logic_1.RemoveBlackPixels(matrix);
             matrix.forEach(function (list) {
                 call.write({ list: list });
             });
             call.end();
         },
         getNewMatrixValues: function (call) {
-            call.request;
-            call.write({ row: 0, col: 0, val: 55 });
+            if (!removeBlackPixels)
+                console.error('You must call getMatrix first'), call.end();
+            var _a = removeBlackPixels.groupBlackPixels(), regionsMatrix = _a.regionsMatrix, regionsData = _a.regionsData;
+            for (var region in regionsData) {
+                if (!regionsData[region].isConnectedToBorder && regionsData[region].regionSize > 1) {
+                    console.log('entre', region, regionsData[region]);
+                    for (var row = 0; row < regionsMatrix.length; row++) {
+                        for (var col = 0; col < regionsMatrix[0].length; col++) {
+                            if (regionsMatrix[row][col] === parseInt(region)) {
+                                call.write({ row: row, col: col, val: 0 });
+                            }
+                        }
+                    }
+                }
+                else {
+                    console.log('no entre', region, regionsData[region]);
+                }
+            }
+            console.log('fin');
             call.end();
         }
     });

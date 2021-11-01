@@ -22,7 +22,7 @@ client.waitForReady(deadline, err => {
 })
 
 function onClientReady(): void {
-  const stream1 = client.getMatrix({ n: 5, m: 5 })
+  const stream1 = client.getMatrix({ n: 6, m: 6 })
   let stream2
 
   const theMatrix: number[][] = []
@@ -32,18 +32,18 @@ function onClientReady(): void {
   })
 
   stream1.on('end', () => {
-    console.log('initalState:', theMatrix)
+    console.log({ initalState: theMatrix })
 
     stream2 = client.getNewMatrixValues({})
 
     stream2.on('data', chunk => {
-      const { col, row, value } = chunk
-      theMatrix[row][col] = value
-      console.log('final:', theMatrix)
+      const { col, row, val } = chunk
+      theMatrix[row][col] = val
+      console.log({ updating: theMatrix })
     })
 
     stream2.on('end', () => {
-      console.log('final:', theMatrix)
+      console.log({ final: theMatrix })
     })
   })
 }

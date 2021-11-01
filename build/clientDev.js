@@ -40,19 +40,22 @@ client.waitForReady(deadline, function (err) {
     onClientReady();
 });
 function onClientReady() {
-    var stream1 = client.getMatrix({ n: 5, m: 5 });
-    var initialMatrix = [];
+    var stream1 = client.getMatrix({ n: 6, m: 6 });
+    var stream2;
+    var theMatrix = [];
     stream1.on('data', function (chunk) {
-        initialMatrix.push(chunk.list);
+        theMatrix.push(chunk.list);
     });
     stream1.on('end', function () {
-        console.log(initialMatrix);
-    });
-    var stream2 = client.getNewMatrixValues({});
-    stream2.on('data', function (chunk) {
-        console.log(chunk);
-    });
-    stream2.on('end', function () {
-        console.log('pos olle 2');
+        console.log({ initalState: theMatrix });
+        stream2 = client.getNewMatrixValues({});
+        stream2.on('data', function (chunk) {
+            var col = chunk.col, row = chunk.row, val = chunk.val;
+            theMatrix[row][col] = val;
+            console.log({ updating: theMatrix });
+        });
+        stream2.on('end', function () {
+            console.log({ final: theMatrix });
+        });
     });
 }

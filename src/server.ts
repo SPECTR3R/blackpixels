@@ -46,16 +46,20 @@ function getServer(): grpc.Server {
       const { regionsMatrix, regionsData } = removeBlackPixels.groupBlackPixels()
 
       for (const region in regionsData) {
-        if (!regionsData[region]?.isConnectedToBorder) continue
-
-        for (let row = 0; row < this.inputMatrix.length; row++) {
-          for (let col = 0; col < this.inputMatrix[0].length; col++) {
-            if (regionsMatrix[row][col] === parseInt(region)) {
-              call.write({ row, col, val: 1 })
+        if (!regionsData[region].isConnectedToBorder && regionsData[region].regionSize > 1) {
+          console.log('entre', region, regionsData[region])
+          for (let row = 0; row < regionsMatrix.length; row++) {
+            for (let col = 0; col < regionsMatrix[0].length; col++) {
+              if (regionsMatrix[row][col] === parseInt(region)) {
+                call.write({ row, col, val: 0 })
+              }
             }
           }
+        } else {
+          console.log('no entre', region, regionsData[region])
         }
       }
+      console.log('fin')
 
       call.end()
     }
