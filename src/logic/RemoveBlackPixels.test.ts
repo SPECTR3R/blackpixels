@@ -97,7 +97,6 @@ describe('The method "groupBlackPixels", also', () => {
 
   it('Tags adjacent regions to with natural numbers from 1 to N, where N is the total number of regions', () => {
     const { regionsMatrix, regionsData } = removeBlackPixels.groupBlackPixels()
-
     expect(regionsMatrix).toEqual([
       [1, 1, 0, 0, 0],
       [0, 0, 0, 2, 2],
@@ -105,5 +104,9 @@ describe('The method "groupBlackPixels", also', () => {
       [0, 2, 2, 2, 0],
       [0, 0, 0, 0, 3]
     ])
+    console.log(regionsData);
+    expect(regionsData[1]).toEqual({ regionSize: 2, isConnectedToBorder: true })
+    expect(regionsData[2]).toEqual({ regionSize: 6, isConnectedToBorder: true })
+    expect(regionsData[3]).toEqual({ regionSize: 1, isConnectedToBorder: true })
   })
 })

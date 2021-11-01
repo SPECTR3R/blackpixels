@@ -25,6 +25,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var path_1 = __importDefault(require("path"));
 var grpc = __importStar(require("@grpc/grpc-js"));
 var protoLoader = __importStar(require("@grpc/proto-loader"));
+var logic_1 = require("./logic");
 var PORT = 8082;
 var PROTO_FILE = './proto/blackPixels.proto';
 var packageDef = protoLoader.loadSync(path_1.default.resolve(__dirname, PROTO_FILE));
@@ -45,10 +46,12 @@ function getServer() {
     var server = new grpc.Server();
     server.addService(blackPixelsPackage.PixelService.service, {
         getMatrix: function (call) {
-            var list = [1, 0, 1];
             var _a = call.request, n = _a.n, m = _a.m;
-            console.log(n, m);
-            call.write({ list: list });
+            var matrix = (0, logic_1.createRandomMatrix)(n, m);
+            console.log(matrix);
+            matrix.forEach(function (list) {
+                call.write({ list: list });
+            });
             call.end();
         },
         getNewMatrixValues: function (call) {

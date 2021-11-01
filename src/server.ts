@@ -3,6 +3,7 @@ import * as grpc from '@grpc/grpc-js'
 import * as protoLoader from '@grpc/proto-loader'
 import { ProtoGrpcType } from './proto/blackPixels'
 import { PixelServiceHandlers } from './proto/blackPixelsPackage/PixelService'
+import { createRandomMatrix, RemoveBlackPixels } from './logic'
 
 const PORT = 8082
 const PROTO_FILE = './proto/blackPixels.proto'
@@ -28,10 +29,13 @@ function getServer(): grpc.Server {
   const server = new grpc.Server()
   server.addService(blackPixelsPackage.PixelService.service, {
     getMatrix: call => {
-      const list = [1, 0, 1]
       const { n, m } = call.request
-      console.log(n, m)
-      call.write({ list })
+      const matrix = createRandomMatrix(n, m)
+      console.log(matrix)
+
+      matrix.forEach(list => {
+        call.write({ list })
+      })
       call.end()
     },
     getNewMatrixValues: call => {

@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rimraf ./build && tsc && touch ./build/proto/blackPixels.proto && cp ./src/proto/blackPixels.proto ./build/proto/blackPixels.proto",
-    "client": "ts-node ./src/client",
+    "client": "ts-node ./src/clientDev",
     "start": "npm run build && node build/server.js",
     "test": "jest --coverage",
     "test:pre": "jest",
