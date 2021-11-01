@@ -1,4 +1,3 @@
-import logo from './logo.svg'
 import { useState, useEffect } from 'react'
 import './App.css'
 import { MatrixSize, MatrixValues, MatrixValue, NoParam } from './proto/blackPixels_pb'
@@ -28,8 +27,6 @@ function App() {
     const row = killValue?.row
     const col = killValue?.col
     if (row && col) {
-      console.log('entra', row, col)
-      console.log(newMatrix[row][col])
       newMatrix[row][col] = 0
       setMatrix(newMatrix)
     }
