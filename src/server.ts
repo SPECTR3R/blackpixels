@@ -9,6 +9,7 @@ const PROTO_FILE = './proto/blackPixels.proto'
 
 const packageDef = protoLoader.loadSync(path.resolve(__dirname, PROTO_FILE))
 const grpcObj = (grpc.loadPackageDefinition(packageDef) as unknown) as ProtoGrpcType
+
 const blackPixelsPackage = grpcObj.blackPixelsPackage
 
 function main(): void {
