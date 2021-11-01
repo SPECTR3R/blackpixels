@@ -30,7 +30,7 @@ function onClientReady(): void {
     console.log('pos olle 1')
   })
 
-  const stream2 = client.getUpdtedMatrix({})
+  const stream2 = client.getNewMatrixValues({})
   stream2.on('data', chunk => {
     console.log(chunk)
   })

@@ -3,19 +3,23 @@ syntax = "proto3";
 package blackPixelsPackage;
 
 service PixelService {
-  rpc getMatrix(MatrixRequest) returns (stream MatrixResponse) {};
-  rpc getUpdtedMatrix(NoParam) returns (stream MatrixResponse) {};
+  rpc getMatrix(MatrixSize) returns (stream MatrixValues) {};
+  rpc getNewMatrixValues(NoParam) returns (stream MatrixValue) {};
 }
 
 message NoParam {}
 
-message MatrixRequest {
+message MatrixSize {
   int32 n = 1;
   int32 m = 2;
 }
 
-message MatrixResponse {
+message MatrixValue {
   int32 row = 1;
   int32 col = 2;
   int32 val = 3;
+}
+
+message MatrixValues  {
+  repeated int32 list = 1;
 }

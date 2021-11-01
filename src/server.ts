@@ -28,13 +28,15 @@ function getServer(): grpc.Server {
   const server = new grpc.Server()
   server.addService(blackPixelsPackage.PixelService.service, {
     getMatrix: call => {
-      call.request
-      call.write({ row: 0, col: 0, val: 1 })
+      const list = [1, 0, 1]
+      const { n, m } = call.request
+      console.log(n, m)
+      call.write({ list })
       call.end()
     },
-    getUpdtedMatrix: call => {
+    getNewMatrixValues: call => {
       call.request
-      call.write({ row: 0, col: 0, val: 2 })
+      call.write({ row: 0, col: 0, val: 55 })
       call.end()
     }
   } as PixelServiceHandlers)

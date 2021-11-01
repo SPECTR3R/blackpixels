@@ -2,31 +2,32 @@
 
 import type * as grpc from '@grpc/grpc-js'
 import type { MethodDefinition } from '@grpc/proto-loader'
-import type { MatrixRequest as _blackPixelsPackage_MatrixRequest, MatrixRequest__Output as _blackPixelsPackage_MatrixRequest__Output } from '../blackPixelsPackage/MatrixRequest';
-import type { MatrixResponse as _blackPixelsPackage_MatrixResponse, MatrixResponse__Output as _blackPixelsPackage_MatrixResponse__Output } from '../blackPixelsPackage/MatrixResponse';
+import type { MatrixSize as _blackPixelsPackage_MatrixSize, MatrixSize__Output as _blackPixelsPackage_MatrixSize__Output } from '../blackPixelsPackage/MatrixSize';
+import type { MatrixValue as _blackPixelsPackage_MatrixValue, MatrixValue__Output as _blackPixelsPackage_MatrixValue__Output } from '../blackPixelsPackage/MatrixValue';
+import type { MatrixValues as _blackPixelsPackage_MatrixValues, MatrixValues__Output as _blackPixelsPackage_MatrixValues__Output } from '../blackPixelsPackage/MatrixValues';
 import type { NoParam as _blackPixelsPackage_NoParam, NoParam__Output as _blackPixelsPackage_NoParam__Output } from '../blackPixelsPackage/NoParam';
 
 export interface PixelServiceClient extends grpc.Client {
-  getMatrix(argument: _blackPixelsPackage_MatrixRequest, metadata: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientReadableStream<_blackPixelsPackage_MatrixResponse__Output>;
-  getMatrix(argument: _blackPixelsPackage_MatrixRequest, options?: grpc.CallOptions): grpc.ClientReadableStream<_blackPixelsPackage_MatrixResponse__Output>;
-  getMatrix(argument: _blackPixelsPackage_MatrixRequest, metadata: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientReadableStream<_blackPixelsPackage_MatrixResponse__Output>;
-  getMatrix(argument: _blackPixelsPackage_MatrixRequest, options?: grpc.CallOptions): grpc.ClientReadableStream<_blackPixelsPackage_MatrixResponse__Output>;
+  getMatrix(argument: _blackPixelsPackage_MatrixSize, metadata: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientReadableStream<_blackPixelsPackage_MatrixValues__Output>;
+  getMatrix(argument: _blackPixelsPackage_MatrixSize, options?: grpc.CallOptions): grpc.ClientReadableStream<_blackPixelsPackage_MatrixValues__Output>;
+  getMatrix(argument: _blackPixelsPackage_MatrixSize, metadata: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientReadableStream<_blackPixelsPackage_MatrixValues__Output>;
+  getMatrix(argument: _blackPixelsPackage_MatrixSize, options?: grpc.CallOptions): grpc.ClientReadableStream<_blackPixelsPackage_MatrixValues__Output>;
   
-  getUpdtedMatrix(argument: _blackPixelsPackage_NoParam, metadata: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientReadableStream<_blackPixelsPackage_MatrixResponse__Output>;
-  getUpdtedMatrix(argument: _blackPixelsPackage_NoParam, options?: grpc.CallOptions): grpc.ClientReadableStream<_blackPixelsPackage_MatrixResponse__Output>;
-  getUpdtedMatrix(argument: _blackPixelsPackage_NoParam, metadata: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientReadableStream<_blackPixelsPackage_MatrixResponse__Output>;
-  getUpdtedMatrix(argument: _blackPixelsPackage_NoParam, options?: grpc.CallOptions): grpc.ClientReadableStream<_blackPixelsPackage_MatrixResponse__Output>;
+  getNewMatrixValues(argument: _blackPixelsPackage_NoParam, metadata: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientReadableStream<_blackPixelsPackage_MatrixValue__Output>;
+  getNewMatrixValues(argument: _blackPixelsPackage_NoParam, options?: grpc.CallOptions): grpc.ClientReadableStream<_blackPixelsPackage_MatrixValue__Output>;
+  getNewMatrixValues(argument: _blackPixelsPackage_NoParam, metadata: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientReadableStream<_blackPixelsPackage_MatrixValue__Output>;
+  getNewMatrixValues(argument: _blackPixelsPackage_NoParam, options?: grpc.CallOptions): grpc.ClientReadableStream<_blackPixelsPackage_MatrixValue__Output>;
   
 }
 
 export interface PixelServiceHandlers extends grpc.UntypedServiceImplementation {
-  getMatrix: grpc.handleServerStreamingCall<_blackPixelsPackage_MatrixRequest__Output, _blackPixelsPackage_MatrixResponse>;
+  getMatrix: grpc.handleServerStreamingCall<_blackPixelsPackage_MatrixSize__Output, _blackPixelsPackage_MatrixValues>;
   
-  getUpdtedMatrix: grpc.handleServerStreamingCall<_blackPixelsPackage_NoParam__Output, _blackPixelsPackage_MatrixResponse>;
+  getNewMatrixValues: grpc.handleServerStreamingCall<_blackPixelsPackage_NoParam__Output, _blackPixelsPackage_MatrixValue>;
   
 }
 
 export interface PixelServiceDefinition extends grpc.ServiceDefinition {
-  getMatrix: MethodDefinition<_blackPixelsPackage_MatrixRequest, _blackPixelsPackage_MatrixResponse, _blackPixelsPackage_MatrixRequest__Output, _blackPixelsPackage_MatrixResponse__Output>
-  getUpdtedMatrix: MethodDefinition<_blackPixelsPackage_NoParam, _blackPixelsPackage_MatrixResponse, _blackPixelsPackage_NoParam__Output, _blackPixelsPackage_MatrixResponse__Output>
+  getMatrix: MethodDefinition<_blackPixelsPackage_MatrixSize, _blackPixelsPackage_MatrixValues, _blackPixelsPackage_MatrixSize__Output, _blackPixelsPackage_MatrixValues__Output>
+  getNewMatrixValues: MethodDefinition<_blackPixelsPackage_NoParam, _blackPixelsPackage_MatrixValue, _blackPixelsPackage_NoParam__Output, _blackPixelsPackage_MatrixValue__Output>
 }

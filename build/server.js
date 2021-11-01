@@ -45,13 +45,15 @@ function getServer() {
     var server = new grpc.Server();
     server.addService(blackPixelsPackage.PixelService.service, {
         getMatrix: function (call) {
-            call.request;
-            call.write({ row: 0, col: 0, val: 1 });
+            var list = [1, 0, 1];
+            var _a = call.request, n = _a.n, m = _a.m;
+            console.log(n, m);
+            call.write({ list: list });
             call.end();
         },
-        getUpdtedMatrix: function (call) {
+        getNewMatrixValues: function (call) {
             call.request;
-            call.write({ row: 0, col: 0, val: 2 });
+            call.write({ row: 0, col: 0, val: 55 });
             call.end();
         }
     });

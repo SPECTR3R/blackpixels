@@ -9,8 +9,9 @@ type SubtypeConstructor<Constructor extends new (...args: any) => any, Subtype> 
 
 export interface ProtoGrpcType {
   blackPixelsPackage: {
-    MatrixRequest: MessageTypeDefinition
-    MatrixResponse: MessageTypeDefinition
+    MatrixSize: MessageTypeDefinition
+    MatrixValue: MessageTypeDefinition
+    MatrixValues: MessageTypeDefinition
     NoParam: MessageTypeDefinition
     PixelService: SubtypeConstructor<typeof grpc.Client, _blackPixelsPackage_PixelServiceClient> & { service: _blackPixelsPackage_PixelServiceDefinition }
   }

@@ -1,12 +1,12 @@
 // Original file: src/proto/blackPixels.proto
 
 
-export interface MatrixRequest {
+export interface MatrixSize {
   'n'?: (number);
   'm'?: (number);
 }
 
-export interface MatrixRequest__Output {
+export interface MatrixSize__Output {
   'n'?: (number);
   'm'?: (number);
 }

@@ -47,7 +47,7 @@ function onClientReady() {
     stream1.on('end', function () {
         console.log('pos olle 1');
     });
-    var stream2 = client.getUpdtedMatrix({});
+    var stream2 = client.getNewMatrixValues({});
     stream2.on('data', function (chunk) {
         console.log(chunk);
     });
