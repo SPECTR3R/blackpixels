@@ -17,7 +17,9 @@
     "no-nested-ternary": "off",
     "prefer-promise-reject-errors": "off",
     "@typescript-eslint/interface-name-prefix": "off",
-    "@typescript-eslint/member-delimiter-style": "off"
+    "@typescript-eslint/member-delimiter-style": "off",
+    "@typescript-eslint/no-use-before-define": "off"
+
   },
   "env": {
     "browser": true,
