@@ -9,6 +9,8 @@ function App() {
   const client = new PixelServiceClient('http://localhost:8080')
 
   const [size, setSize] = useState<number>(0)
+  const [processGuard, seprocessGuard] = useState<boolean>(true)
+
   const [killValue, setKillValue] = useState<{ row: number; col: number; val: number }>()
 
   const handleInputChange = (event: any) => {
@@ -25,17 +27,16 @@ function App() {
     const newMatrix = JSON.parse(JSON.stringify(matrix))
     const row = killValue?.row
     const col = killValue?.col
-
     if (row && col) {
       console.log('entra', row, col)
       console.log(newMatrix[row][col])
       newMatrix[row][col] = 0
-      // newMatrix[killValue.row][killValue.col]
-       setMatrix(newMatrix)
+      setMatrix(newMatrix)
     }
   }, [killValue])
 
   const getMatrix = async () => {
+    seprocessGuard(false)
     const theMatrix: any = []
     const matrixSize = new MatrixSize()
     matrixSize.setN(size)
@@ -51,8 +52,7 @@ function App() {
   }
   const updateMatrix = async () => {
     const stream2 = client.getNewMatrixValues(new NoParam())
-    let counter = 0
-
+    seprocessGuard(true)
     stream2.on('data', chunk => {
       const { row, col, val } = (chunk as MatrixValue).toObject()
       setKillValue({ row, col, val })
@@ -92,7 +92,7 @@ function App() {
           <button className="App-button" disabled={size < 3} onClick={getMatrix}>
             Plot matrix
           </button>
-          <button className="App-button" disabled={size < 3} onClick={updateMatrix}>
+          <button className="App-button" disabled={processGuard} onClick={updateMatrix}>
             process matrix
           </button>
         </div>
