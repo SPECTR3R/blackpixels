@@ -1,10 +1,16 @@
 import logo from './logo.svg'
+import { useState } from 'react'
 import './App.css'
 import { MatrixSize } from './proto/blackPixels_pb'
 import { PixelServiceClient } from './proto/BlackPixelsServiceClientPb'
 import Canvas from './components/Canvas'
 
 function App() {
+  const [matrix, setMatrix] = useState([
+    [1, 0, 0],
+    [0, 1, 0],
+    [0, 0, 1]
+  ])
   // useEffect(() => {
   //   const client = new PixelServiceClient('http://localhost:8080')
   //   const matrixSize = new MatrixSize()
@@ -21,13 +27,18 @@ function App() {
 
   const draw = (ctx: any, frameCount: number): void => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-
+    const cellWidth = ctx.canvas.width / matrix.length
+    const cellHeight = ctx.canvas.height / matrix.length
     ctx.fillStyle = '#fff'
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
-    ctx.fillStyle = '#a0f'
-    ctx.beginPath()
-    ctx.arc(50, 100, 20 * Math.sin(frameCount * 0.05) ** 2, 0, 2 * Math.PI)
+    matrix.forEach((row, y) => {
+      row.forEach((value, x) => {
+        ctx.fillStyle = value ? '#000' : '#fff'
+        ctx.fillRect(x * cellWidth, y * cellHeight, cellWidth, cellHeight)
+      })
+    })
+
     ctx.fill()
   }
 
