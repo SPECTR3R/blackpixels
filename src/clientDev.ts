@@ -23,21 +23,27 @@ client.waitForReady(deadline, err => {
 
 function onClientReady(): void {
   const stream1 = client.getMatrix({ n: 5, m: 5 })
+  let stream2
 
-  const initialMatrix: number[][] = []
+  const theMatrix: number[][] = []
 
   stream1.on('data', chunk => {
-    initialMatrix.push(chunk.list)
-  })
-  stream1.on('end', () => {
-    console.log(initialMatrix)
+    theMatrix.push(chunk.list)
   })
 
-  const stream2 = client.getNewMatrixValues({})
-  stream2.on('data', chunk => {
-    console.log(chunk)
-  })
-  stream2.on('end', () => {
-    console.log('pos olle 2')
+  stream1.on('end', () => {
+    console.log('initalState:', theMatrix)
+
+    stream2 = client.getNewMatrixValues({})
+
+    stream2.on('data', chunk => {
+      const { col, row, value } = chunk
+      theMatrix[row][col] = value
+      console.log('final:', theMatrix)
+    })
+
+    stream2.on('end', () => {
+      console.log('final:', theMatrix)
+    })
   })
 }

@@ -13,6 +13,8 @@ const grpcObj = (grpc.loadPackageDefinition(packageDef) as unknown) as ProtoGrpc
 
 const blackPixelsPackage = grpcObj.blackPixelsPackage
 
+let removeBlackPixels: RemoveBlackPixels
+
 function main(): void {
   const server = getServer()
 
@@ -31,16 +33,30 @@ function getServer(): grpc.Server {
     getMatrix: call => {
       const { n, m } = call.request
       const matrix = createRandomMatrix(n, m)
-      console.log(matrix)
-
+      removeBlackPixels = new RemoveBlackPixels(matrix)
       matrix.forEach(list => {
         call.write({ list })
       })
+
       call.end()
     },
     getNewMatrixValues: call => {
-      call.request
-      call.write({ row: 0, col: 0, val: 55 })
+      if (!removeBlackPixels) console.error('You must call getMatrix first'), call.end()
+
+      const { regionsMatrix, regionsData } = removeBlackPixels.groupBlackPixels()
+
+      for (const region in regionsData) {
+        if (!regionsData[region]?.isConnectedToBorder) continue
+
+        for (let row = 0; row < this.inputMatrix.length; row++) {
+          for (let col = 0; col < this.inputMatrix[0].length; col++) {
+            if (regionsMatrix[row][col] === parseInt(region)) {
+              call.write({ row, col, val: 1 })
+            }
+          }
+        }
+      }
+
       call.end()
     }
   } as PixelServiceHandlers)
