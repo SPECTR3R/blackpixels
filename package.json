@@ -4,14 +4,14 @@
   "author": "Armando del Río <adrio.coder@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf ./build && tsc && touch build/proto/blackPixels.proto && cp src/proto/blackPixels.proto build/proto/blackPixels.proto",
-    "client": "ts-node src/client",
+    "build": "rimraf ./build && tsc && touch ./build/proto/blackPixels.proto && cp ./src/proto/blackPixels.proto ./build/proto/blackPixels.proto",
+    "client": "ts-node ./src/client",
     "start": "npm run build && node build/server.js",
     "test": "jest --coverage",
     "test:pre": "jest",
     "test:dev": "jest --watchAll",
     "lint": "eslint . --ext .ts && prettier --config .prettierrc 'src/**/*.ts' --write",
-    "proto:gen": "./proto-gen.sh"
+    "proto:gen": "rimraf src/proto/blackPixelsPackage && ./proto-gen.sh"
   },
   "husky": {
     "hooks": {

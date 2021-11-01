@@ -27,9 +27,15 @@ function main(): void {
 function getServer(): grpc.Server {
   const server = new grpc.Server()
   server.addService(blackPixelsPackage.PixelService.service, {
-    PingPong: (req, res) => {
-      console.log(req.request)
-      res(null, { message: 'Pong' })
+    getMatrix: call => {
+      call.request
+      call.write({ row: 0, col: 0, val: 1 })
+      call.end()
+    },
+    getUpdtedMatrix: call => {
+      call.request
+      call.write({ row: 0, col: 0, val: 2 })
+      call.end()
     }
   } as PixelServiceHandlers)
   return server

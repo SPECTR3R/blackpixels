@@ -3,13 +3,19 @@ syntax = "proto3";
 package blackPixelsPackage;
 
 service PixelService {
-  rpc PingPong(PingRequest) returns (PongResponse) {};
+  rpc getMatrix(MatrixRequest) returns (stream MatrixResponse) {};
+  rpc getUpdtedMatrix(NoParam) returns (stream MatrixResponse) {};
 }
 
-message PingRequest {
-  string message = 1;
+message NoParam {}
+
+message MatrixRequest {
+  int32 n = 1;
+  int32 m = 2;
 }
 
-message PongResponse {
-  string message = 1;
+message MatrixResponse {
+  int32 row = 1;
+  int32 col = 2;
+  int32 val = 3;
 }

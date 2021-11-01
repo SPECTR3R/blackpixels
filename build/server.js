@@ -44,9 +44,15 @@ function main() {
 function getServer() {
     var server = new grpc.Server();
     server.addService(blackPixelsPackage.PixelService.service, {
-        PingPong: function (req, res) {
-            console.log(req.request);
-            res(null, { message: 'Pong' });
+        getMatrix: function (call) {
+            call.request;
+            call.write({ row: 0, col: 0, val: 1 });
+            call.end();
+        },
+        getUpdtedMatrix: function (call) {
+            call.request;
+            call.write({ row: 0, col: 0, val: 2 });
+            call.end();
         }
     });
     return server;

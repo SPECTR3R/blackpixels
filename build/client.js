@@ -40,11 +40,18 @@ client.waitForReady(deadline, function (err) {
     onClientReady();
 });
 function onClientReady() {
-    client.PingPong({ message: 'ping' }, function (err, response) {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        console.log(response);
+    var stream1 = client.getMatrix({ n: 5, m: 5 });
+    stream1.on('data', function (chunk) {
+        console.log(chunk);
+    });
+    stream1.on('end', function () {
+        console.log('pos olle 1');
+    });
+    var stream2 = client.getUpdtedMatrix({});
+    stream2.on('data', function (chunk) {
+        console.log(chunk);
+    });
+    stream2.on('end', function () {
+        console.log('pos olle 2');
     });
 }

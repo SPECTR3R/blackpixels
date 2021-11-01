@@ -22,11 +22,19 @@ client.waitForReady(deadline, err => {
 })
 
 function onClientReady(): void {
-  client.PingPong({ message: 'ping' }, (err, response) => {
-    if (err) {
-      console.error(err)
-      return
-    }
-    console.log(response)
+  const stream1 = client.getMatrix({ n: 5, m: 5 })
+  stream1.on('data', chunk => {
+    console.log(chunk)
+  })
+  stream1.on('end', () => {
+    console.log('pos olle 1')
+  })
+
+  const stream2 = client.getUpdtedMatrix({})
+  stream2.on('data', chunk => {
+    console.log(chunk)
+  })
+  stream2.on('end', () => {
+    console.log('pos olle 2')
   })
 }
